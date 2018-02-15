@@ -1,3 +1,5 @@
+var events = [] 
+var missions = {} 
 $(document).ready(function() {
             // Use a "/test" namespace.
             // An application can open a connection on multiple namespaces, and
@@ -10,7 +12,7 @@ $(document).ready(function() {
             // The connection URL has the following format:
             //     http[s]://<domain>:<port>[/<namespace>]
             //var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            var socket = io.connect('http://localhost:' + "5000" + namespace);
+            var socket = io.connect('http://ubuntu:' + "5000" + namespace);
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
@@ -24,13 +26,16 @@ $(document).ready(function() {
             // to the client. The data is then displayed in the "Received"
             // section of the page.
             socket.on('my_response', function(msg) {
-                console.log('Received #' + msg.count + ': ' + msg.data);
                 if (msg.data[0]=='{')
                 {
+                    events.push(event)
                     var event = JSON.parse(msg.data)
-                    if (event.event=="MissionAccepted")
+                    if  ( (event.event=="MissionAccepted")
+                        || (event.event=="MissionRedirected")
+                        || (event.event=="MissionCompleted")
+                        || (event.event=="MissionFailed") )
                     {
-                        $('#missions').append('<tr id="mission'+event.MissionID+'" >'+
+                        $('#missions').prepend('<tr id="mission'+event.MissionID+'" >'+
                             '<td>'+event.MissionID+'</td>'+
                             '<td>'+event.event+'</td>'+
                             '<td>'+event.DestinationSystem+'</td>'+
@@ -38,17 +43,46 @@ $(document).ready(function() {
                             '<td>'+event.Name+'</td>'+
                             '<td>'+event.Reward+'</td>'+
                             '</tr>');
+                        if  (event.event=="MissionAccepted")
+                        {
+                            if(missions[event.MissionID]==undefined)
+                            {
+                            $('#active_missions').prepend('<tr id="mission_a'+event.MissionID+'" >'+
+                                '<td>'+event.MissionID+'</td>'+
+                                '<td>'+event.event+'</td>'+
+                                '<td>'+event.DestinationSystem+'</td>'+
+                                '<td>'+event.DestinationStation+'</td>'+
+                                '<td>'+event.Name+'</td>'+
+                                '<td>'+event.Reward+'</td>'+
+                                '</tr>');
+                                }
+                        }
+                        else if ( (event.event=="MissionFailed")
+                            || (event.event=="MissionCompleted") )
+                        {
+                            $('table#active_missions tr#mission_a'+event.MissionID).remove()
+                        }
+                        else if  (event.event=="MissionRedirected")
+                        {
+                           $('table#missions'+
+                               ' tr#mission'+event.MissionID+
+                               ' td:nth-child(3)').html(event.OldDestinationSystem) 
+                           $('table#missions'+
+                               ' tr#mission'+event.MissionID+
+                               ' td:nth-child(4)').html(event.OldDestinationStation) 
+
+                           $('table#active_missions'+ 
+                               ' tr#mission_a'+event.MissionID+
+                               ' td:nth-child(3)').html("R"+event.NewDestinationSystem) 
+                           $('table#active_missions'+
+                               ' tr#mission_a'+event.MissionID+
+                               ' td:nth-child(4)').html(event.NewDestinationStation) 
+                        }
+                        missions[event.MissionID] = event
                     }
-                    else if (event.event=="MissionCompleted")
+                    else
                     {
-                        $('table#missions tr#mission315824062').remove()
-                    }
-                    else if (event.event=="MissionRedirected")
-                    {
-                    }
-                    else if (event.event=="MissionFailed")
-                    {
-                        $('table#missions tr#mission315824062').remove()
+                        console.log('Received #' + msg.count + ': ' + msg.data);
                     }
                 }
             });
