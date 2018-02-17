@@ -1,5 +1,5 @@
-var events = [] 
-var missions = {} 
+var events = []
+var missions = {}
 $(document).ready(function() {
             // Use a "/test" namespace.
             // An application can open a connection on multiple namespaces, and
@@ -12,7 +12,7 @@ $(document).ready(function() {
             // The connection URL has the following format:
             //     http[s]://<domain>:<port>[/<namespace>]
             //var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            var socket = io.connect('http://localhost:' + "8666" + namespace);
+            var socket = io.connect('http://ubuntu:' + "8666" + namespace);
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
@@ -39,19 +39,20 @@ $(document).ready(function() {
                             '<td>'+event.DestinationSystem+'</td>'+
                             '<td>'+event.DestinationStation+'</td>'+
                             '<td>'+event.Name+'</td>'+
-                            '<td>'+event.Reward+'</td>'+
+                            '<td class="rowLeft">'+event.Reward+'</td>'+
                             '</tr>');
                         if  (event.event=="MissionAccepted")
                         {
                             if(missions[event.MissionID]==undefined)
                             {
+                              var expires = new date(event.Expiry)
                             $('#active_missions').prepend('<tr id="mission_a'+event.MissionID+'" >'+
                                 '<td>'+event.MissionID+'</td>'+
-                                '<td>'+event.event+'</td>'+
+                                '<td>'+expire.event+'</td>'+
                                 '<td>'+event.DestinationSystem+'</td>'+
                                 '<td>'+event.DestinationStation+'</td>'+
                                 '<td>'+event.Name+'</td>'+
-                                '<td>'+event.Reward+'</td>'+
+                                '<td class="rowLeft">'+event.Reward+'</td>'+
                                 '</tr>');
                                 }
                         }
@@ -64,17 +65,17 @@ $(document).ready(function() {
                         {
                            $('table#missions'+
                                ' tr#mission'+event.MissionID+
-                               ' td:nth-child(3)').html(event.OldDestinationSystem) 
+                               ' td:nth-child(3)').html(event.OldDestinationSystem)
                            $('table#missions'+
                                ' tr#mission'+event.MissionID+
-                               ' td:nth-child(4)').html(event.OldDestinationStation) 
+                               ' td:nth-child(4)').html(event.OldDestinationStation)
 
-                           $('table#active_missions'+ 
-                               ' tr#mission_a'+event.MissionID+
-                               ' td:nth-child(3)').html("R"+event.NewDestinationSystem) 
                            $('table#active_missions'+
                                ' tr#mission_a'+event.MissionID+
-                               ' td:nth-child(4)').html(event.NewDestinationStation) 
+                               ' td:nth-child(3)').html("R"+event.NewDestinationSystem)
+                           $('table#active_missions'+
+                               ' tr#mission_a'+event.MissionID+
+                               ' td:nth-child(4)').html(event.NewDestinationStation)
                         }
                         missions[event.MissionID] = event
                     }
