@@ -12,7 +12,7 @@ $(document).ready(function() {
             // The connection URL has the following format:
             //     http[s]://<domain>:<port>[/<namespace>]
             //var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            var socket = io.connect('http://ubuntu:' + "5000" + namespace);
+            var socket = io.connect('http://localhost:' + "8666" + namespace);
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
@@ -26,10 +26,8 @@ $(document).ready(function() {
             // to the client. The data is then displayed in the "Received"
             // section of the page.
             socket.on('my_response', function(msg) {
-                if (msg.data[0]=='{')
-                {
+                    var event = msg.data
                     events.push(event)
-                    var event = JSON.parse(msg.data)
                     if  ( (event.event=="MissionAccepted")
                         || (event.event=="MissionRedirected")
                         || (event.event=="MissionCompleted")
@@ -82,9 +80,8 @@ $(document).ready(function() {
                     }
                     else
                     {
-                        console.log('Received #' + msg.count + ': ' + msg.data);
+                        console.log('Received #' + JSON.stringify(msg.data));
                     }
-                }
             });
 
             // Interval function that tests message latency by sending a "ping"
