@@ -107,6 +107,6 @@ body {
  * Elite
  */
 
-rowLeft {
-  text-align: left
+rowRight {
+  text-align: right;
 }

@@ -39,20 +39,20 @@ $(document).ready(function() {
                             '<td>'+event.DestinationSystem+'</td>'+
                             '<td>'+event.DestinationStation+'</td>'+
                             '<td>'+event.Name+'</td>'+
-                            '<td class="rowLeft">'+event.Reward+'</td>'+
+                            '<td class="rowRight">'+event.Reward+'</td>'+
                             '</tr>');
                         if  (event.event=="MissionAccepted")
                         {
                             if(missions[event.MissionID]==undefined)
                             {
-                              var expires = new date(event.Expiry)
+                              var expires = new Date(event.Expiry)
                             $('#active_missions').prepend('<tr id="mission_a'+event.MissionID+'" >'+
                                 '<td>'+event.MissionID+'</td>'+
-                                '<td>'+expire.event+'</td>'+
+                                '<td>'+expires.toLocaleTimeString()+" - "+expires.toLocaleDateString()+'</td>'+
                                 '<td>'+event.DestinationSystem+'</td>'+
                                 '<td>'+event.DestinationStation+'</td>'+
                                 '<td>'+event.Name+'</td>'+
-                                '<td class="rowLeft">'+event.Reward+'</td>'+
+                                '<td class="rowRight">'+event.Reward+'</td>'+
                                 '</tr>');
                                 }
                         }
