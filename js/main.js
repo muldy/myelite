@@ -12,7 +12,7 @@ $(document).ready(function() {
             // The connection URL has the following format:
             //     http[s]://<domain>:<port>[/<namespace>]
             //var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            var socket = io.connect('http://ubuntu:' + "8666" + namespace);
+            var socket = io.connect('http://localhost:' + "3666" + namespace);
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
