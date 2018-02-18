@@ -12,7 +12,7 @@ $(document).ready(function() {
             // The connection URL has the following format:
             //     http[s]://<domain>:<port>[/<namespace>]
             //var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            var socket = io.connect('http://ubuntu:' + "8666" + namespace);
+            var socket = io.connect('http://localhost:' + "8666" + namespace);
 
             // Event handler for new connections.
             // The callback function is invoked when a connection with the
@@ -31,6 +31,7 @@ $(document).ready(function() {
                     if  ( (event.event=="MissionAccepted")
                         || (event.event=="MissionRedirected")
                         || (event.event=="MissionCompleted")
+                        || (event.event=="MissionAbandoned")
                         || (event.event=="MissionFailed") )
                     {
                         $('#missions').prepend('<tr id="mission'+event.MissionID+'" >'+
@@ -57,7 +58,9 @@ $(document).ready(function() {
                                 }
                         }
                         else if ( (event.event=="MissionFailed")
-                            || (event.event=="MissionCompleted") )
+                            || (event.event=="MissionCompleted") 
+                            || (event.event=="MissionAbandoned") 
+			)
                         {
                             $('table#active_missions tr#mission_a'+event.MissionID).remove()
                         }
@@ -72,7 +75,7 @@ $(document).ready(function() {
 
                            $('table#active_missions'+
                                ' tr#mission_a'+event.MissionID+
-                               ' td:nth-child(3)').html("R"+event.NewDestinationSystem)
+                               ' td:nth-child(3)').html(event.NewDestinationSystem)
                            $('table#active_missions'+
                                ' tr#mission_a'+event.MissionID+
                                ' td:nth-child(4)').html(event.NewDestinationStation)
