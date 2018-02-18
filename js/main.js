@@ -1,5 +1,62 @@
 var events = []
 var missions = {}
+
+function ToExpire(targetDate)
+{
+
+  var today = new Date();
+  if (targetDate.toLocaleDateString() == today.toLocaleDateString())
+  {
+    prefix = targetDate.toLocaleTimeString()
+  }
+  else {
+    prefix = targetDate.toLocaleTimeString()+" - "+targetDate.toLocaleDateString()
+  }
+  return prefix
+/*
+  var diffMs = (targetDate - today); // milliseconds between now & Christmas
+  var diffDays = Math.floor(diffMs / 86400000); // days
+  var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
+  var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
+
+  if (diffDays>0)
+  {
+    return prefix + " ( " +diffDays + "d" + diffHrs + "h" + diffMins + "m" + " ) "
+  }
+  else if (diffHrs>0) {
+    {
+      return prefix + " ( " +diffHrs + "h" + diffMins + "m" + " ) "
+    }
+  }
+  return prefix + " ( " +diffMins+"m" + " ) "
+  */
+}
+
+function getMissionIcon(name)
+{
+  if ( (name=="Mission_Courier_War") ||
+      (name=="Mission_Courier") ||
+      (name=="Mission_Courier_Boom") )
+  {
+    return "img/courier.png"
+  }
+  else if( (name=="Mission_PassengerBulk_REFUGEE_LEAVING") ||
+    (name=="Mission_PassengerVIP_Terrorist_WAR") )
+  {
+
+  }
+}
+function getReward(reward)
+{
+  if (reward===undefined)
+  {
+    return "-"
+  }
+  else {
+    return reward.toLocaleString()
+  }
+}
+
 $(document).ready(function() {
             // Use a "/test" namespace.
             // An application can open a connection on multiple namespaces, and
@@ -40,7 +97,7 @@ $(document).ready(function() {
                             '<td>'+event.DestinationSystem+'</td>'+
                             '<td>'+event.DestinationStation+'</td>'+
                             '<td>'+event.Name+'</td>'+
-                            '<td class="rowRight">'+event.Reward+'</td>'+
+                            '<td class="rowRight">'+getReward(event.Reward)+'</td>'+
                             '</tr>');
                         if  (event.event=="MissionAccepted")
                         {
@@ -49,17 +106,18 @@ $(document).ready(function() {
                               var expires = new Date(event.Expiry)
                             $('#active_missions').prepend('<tr id="mission_a'+event.MissionID+'" >'+
                                 '<td>'+event.MissionID+'</td>'+
-                                '<td>'+expires.toLocaleTimeString()+" - "+expires.toLocaleDateString()+'</td>'+
+                                '<td>'+event.MissionID+'</td>'+
+                                '<td>'+ToExpire(expires)  + '</td>'+
                                 '<td>'+event.DestinationSystem+'</td>'+
                                 '<td>'+event.DestinationStation+'</td>'+
-                                '<td>'+event.Name+'</td>'+
-                                '<td class="rowRight">'+event.Reward+'</td>'+
+                                '<td>'+event.LocalisedName+'</td>'+
+                                '<td class="rowRight">'+getReward(event.Reward)+'</td>'+
                                 '</tr>');
                                 }
                         }
                         else if ( (event.event=="MissionFailed")
-                            || (event.event=="MissionCompleted") 
-                            || (event.event=="MissionAbandoned") 
+                            || (event.event=="MissionCompleted")
+                            || (event.event=="MissionAbandoned")
 			)
                         {
                             $('table#active_missions tr#mission_a'+event.MissionID).remove()
