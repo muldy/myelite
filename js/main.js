@@ -96,7 +96,7 @@ $(document).ready(function() {
                             '<td>'+event.event+'</td>'+
                             '<td>'+event.DestinationSystem+'</td>'+
                             '<td>'+event.DestinationStation+'</td>'+
-                            '<td>'+event.Name+'</td>'+
+                            '<td>'+event.LocalisedName+'</td>'+
                             '<td class="rowRight">'+getReward(event.Reward)+'</td>'+
                             '</tr>');
                         if  (event.event=="MissionAccepted")
