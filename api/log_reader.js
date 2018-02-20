@@ -43,56 +43,12 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       });
       /**************************** NOT STORED ***********************************************/
     } else if (eventJSon.event == "Progress") {
-      /*
-      {
-      "Federation": 73,
-      "Combat": 7,
-      "CQC": 0,
-      "timestamp": "2018-02-13T18:21:32Z",
-      "Trade": 44,
-      "Explore": 33,
-      "Empire": 100,
-      "event": "Progress"
-      }
-      */
       console.log("Got a Progress event")
     } else if (eventJSon.event == "Rank") {
-      /*
-      {
-        "Federation": 3,
-        "Combat": 2,
-        "CQC": 0,
-        "timestamp": "2018-02-13T18:21:32Z",
-        "Trade": 4,
-        "Explore": 5,
-        "Empire": 2,
-        "event": "Rank"
-      }
-      */
       console.log("Got a Rank event")
     } else if (eventJSon.event == "LoadGame") {
-      /*
-      {
-        "ShipName": "",
-        "Group": "MiiG",
-        "FuelLevel": 32,
-        "timestamp": "2018-02-13T18:21:32Z",
-        "Loan": 0,
-        "GameMode": "Group",
-        "Commander": "Muldy",
-        "Credits": 15970829,
-        "ShipIdent": "",
-        "Ship": "Type7",
-        "ShipID": 3,
-        "FuelCapacity": 32,
-        "event": "LoadGame"
-      }
-      */
       console.log("Got a LoadGame event")
     } else if (eventJSon.event == "Location") {
-      /*
-      TODO: put here tl;dr
-      */
       console.log("Got a Location event")
     } else if (eventJSon.event == "Docked") {
       console.log("Got a Docked event")
@@ -160,7 +116,6 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       console.log("Got a RepairAll event")
     } else if (eventJSon.event == "Repair") {
       console.log("Got a Repair event")
-
     } else if (eventJSon.event == "ReceiveText") {
       //console.log(JSON.stringify(eventJSon));
       if (eventJSon.From_Localised !== undefined) {
