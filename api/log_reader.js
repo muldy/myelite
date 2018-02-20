@@ -36,7 +36,6 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       });
     } else if (eventJSon.event == "CommunityGoal") {
       eventJSon.CurrentGoals.map(x => {
-        console.log(x)
         dbCommunityGoal.update({
             CGID: x.CGID
           },
@@ -47,7 +46,7 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
             if (err) {
               console.log("ERROR: ", err)
             } else {
-              console.log("\tUpdated a CommunityGoal event :" + numReplaced)
+              console.log("\tUpdated a CommunityGoal event :" + x.CGID)
             }
           });
       });
@@ -136,7 +135,7 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       } else {
         console.log("Got a ReceiveText event: ", eventJSon.From, "> ", eventJSon.Message_Localised);
       }
-    } else if (eventJSon.event == "ReceiveText") {} else if (eventJSon.lastSystem !== undefined) {} else {
+    } else {
       console.log("Unknown event:\n" + JSON.stringify(eventJSon, undefined, 2));
       console.log("***********************************\n")
       console.log('\n} else if (eventJSon.event == "' + eventJSon.event + '") {\nconsole.log("Got a ' + eventJSon.event + ' event")\n')
