@@ -11,4 +11,4 @@ test.on('connection', function(client){
     console.log("Client disconnected!")
   });
 });
-io.listen(3666);
+io.listen(3000);
