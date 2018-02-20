@@ -1,7 +1,7 @@
 exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
 
   var LineByLineReader = require('line-by-line'),
-    lr = new LineByLineReader('event_logs/event1.log');
+    lr = new LineByLineReader('event_logs/event2.log');
 
   lr.on('error', function(err) {
     // 'err' contains error object
@@ -128,6 +128,26 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       console.log("Got a RepairAll event")
     } else if (eventJSon.event == "Repair") {
       console.log("Got a Repair event")
+    } else if (eventJSon.event == "StartUp") {
+      console.log("Got a StartUp event")
+    } else if (eventJSon.event == "Touchdown") {
+      console.log("Got a Touchdown event")
+    } else if (eventJSon.event == "LaunchSRV") {
+      console.log("Got a LaunchSRV event")
+    } else if (eventJSon.event == "Liftoff") {
+      console.log("Got a Liftoff event")
+    } else if (eventJSon.event == "CommitCrime") {
+      console.log("Got a CommitCrime event")
+    } else if (eventJSon.event == "Bounty") {
+      console.log("Got a Bounty event")
+    } else if (eventJSon.event == "VehicleSwitch") {
+      console.log("Got a VehicleSwitch event")
+    } else if (eventJSon.event == "DockingDenied") {
+      console.log("Got a DockingDenied event")
+    } else if (eventJSon.event == "ShipyardBuy") {
+      console.log("Got a ShipyardBuy event")
+    } else if (eventJSon.event == "ModuleSellRemote") {
+      console.log("Got a ModuleSellRemote event")
     } else if (eventJSon.event == "ReceiveText") {
       //console.log(JSON.stringify(eventJSon));
       if (eventJSon.From_Localised !== undefined) {
