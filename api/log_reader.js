@@ -36,22 +36,23 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       });
     } else if (eventJSon.event == "CommunityGoal") {
       eventJSon.CurrentGoals.map(x => {
-
+        console.log(x)
         dbCommunityGoal.update({
-          CGID: x.CGID
-        }, x, {
-          upsert: true
-        }, function(err, newDocs) {
-          if (err) {
-            console.log("ERROR: ", err)
-          } else {
-            console.log("\tGot a CommunityGoal event :" + newDocs._id)
-          }
-        })
-
-
-
+            CGID: x.CGID
+          },
+          x, {
+            upsert: true
+          },
+          function(err, numReplaced, upsert) {
+            if (err) {
+              console.log("ERROR: ", err)
+            } else {
+              console.log("\tUpdated a CommunityGoal event :" + numReplaced)
+            }
+          });
       });
+
+
       /**************************** NOT STORED ***********************************************/
     } else if (eventJSon.event == "Progress") {
       console.log("Got a Progress event")
