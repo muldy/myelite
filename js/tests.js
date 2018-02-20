@@ -6,5 +6,8 @@ $(document).ready(function() {
   socket.on('event',function(data)
   {
     console.log("Server sent event: '"+data+"'")
-  })
+  });
+  socket.on('disconnect', function(){
+    console.log("Server disconnected")
+  });
 });
