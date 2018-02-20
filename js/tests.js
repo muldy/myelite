@@ -5,7 +5,7 @@ $(document).ready(function() {
   socket.emit('event', "hello!");
   socket.on('event',function(data)
   {
-    console.log("Server sent event: '"+data+"'")
+    console.log("Server sent event: '"+JSON.stringify(data)+"'")
   });
   socket.on('disconnect', function(){
     console.log("Server disconnected")

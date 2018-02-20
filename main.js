@@ -61,8 +61,23 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
+var Datastore = require('nedb'),
+  dbEvents = new Datastore({
+    filename: 'db/events',
+    autoload: true
+  });
+
+  dbMissions = new Datastore({
+    filename: 'db/missions',
+    autoload: true
+  });
+
+  dbCommunityGoal = new Datastore({
+    filename: 'db/comgoals',
+    autoload: true
+  });
+
 const io = require('./api/socket_server')
 var webSock = io.startServer();
-console.log(webSock);
 const lreader = require('./api/log_reader')
-lreader.readLog(webSock);
+var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);
