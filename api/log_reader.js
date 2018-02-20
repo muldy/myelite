@@ -35,11 +35,22 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
         console.log("Got a mission event :" + newDocs._id)
       });
     } else if (eventJSon.event == "CommunityGoal") {
-      dbCommunityGoal.insert(eventJSon, function(err, newDocs) {
-        if (err) {
-          console.log("ERROR: ", err)
-        }
-        console.log("Got a CommunityGoal event :" + newDocs._id)
+      eventJSon.CurrentGoals.map(x => {
+
+        dbCommunityGoal.update({
+          CGID: x.CGID
+        }, x, {
+          upsert: true
+        }, function(err, newDocs) {
+          if (err) {
+            console.log("ERROR: ", err)
+          } else {
+            console.log("\tGot a CommunityGoal event :" + newDocs._id)
+          }
+        })
+
+
+
       });
       /**************************** NOT STORED ***********************************************/
     } else if (eventJSon.event == "Progress") {
@@ -105,6 +116,7 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
     } else if (eventJSon.event == "Resurrect") {
       console.log("Got a Resurrect event")
     } else if (eventJSon.event == "Passengers") {
+      console.log(JSON.stringify(eventJSon));
       console.log("Got a Passengers event")
     } else if (eventJSon.event == "Materials") {
       console.log("Got a Materials event")
