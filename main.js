@@ -18,7 +18,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'socket.html'),
+    pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -93,4 +93,4 @@ const lreader = require('./api/log_reader')
 
 
 /* LOG READER */
-var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);
+//var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);
