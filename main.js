@@ -18,7 +18,7 @@ function createWindow() {
 
   // and load the index.html of the app.
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
+    pathname: path.join(__dirname, 'empty_template.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -78,6 +78,16 @@ var Datastore = require('nedb'),
   });
 
 var wapp = require('express')();
+var exphbs  = require('express-handlebars');
+
+var hbs = exphbs.create({ /* config */ });
+
+// Register `hbs.engine` with the Express app.
+wapp.engine('handlebars', hbs.engine);
+wapp.set('view engine', 'handlebars');
+wapp.enable('view cache');
+//TODO: process.env.NODE_ENV === "production"
+
 var server = require('http').createServer(wapp);
 //routes
 var router = require('./api/router_main')

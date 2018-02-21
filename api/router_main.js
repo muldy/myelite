@@ -9,7 +9,8 @@ router.use(function timeLog (req, res, next) {
 })
 // define the home page route
 router.get('/', function (req, res) {
-  res.json({ h1:1})
+  //res.render('home');
+  res.render('home', {layout: false});
 })
 // define the about route
 router.get('/about', function (req, res) {
