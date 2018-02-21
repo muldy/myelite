@@ -77,7 +77,20 @@ var Datastore = require('nedb'),
     autoload: true
   });
 
+var wapp = require('express')();
+var server = require('http').createServer(wapp);
+//routes
+var router = require('./api/router_main')
+wapp.use('/',router)
+var missions = require('./api/router_missions')
+wapp.use('/missions',missions)
+
+//websockets
 const io = require('./api/socket_server')
-var webSock = io.startServer();
+
+var webSock = io.startServer(server,router);
 const lreader = require('./api/log_reader')
+
+
+/* LOG READER */
 var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);

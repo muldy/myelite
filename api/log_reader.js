@@ -1,7 +1,7 @@
 exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
 
   var LineByLineReader = require('line-by-line'),
-    lr = new LineByLineReader('event_logs/event2.log');
+    lr = new LineByLineReader('event_logs/event1.log');
 
   lr.on('error', function(err) {
     // 'err' contains error object
@@ -27,13 +27,46 @@ exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
       } else {
         console.log("Line without event:\n" + JSON.stringify(eventJSon, undefined, 2));
       }
+
+      /************************** MISSIONS ***********************************/
     } else if (eventJSon.event.startsWith("Mission")) {
-      dbMissions.insert(eventJSon, function(err, newDocs) {
-        if (err) {
-          console.log("ERROR: ", err)
-        }
-        console.log("Got a mission event :" + newDocs._id)
-      });
+
+      if (eventJSon.event == "MissionAccepted") {
+        dbMissions.insert(eventJSon, function(err, newDocs) {
+          if (err) {
+            console.log("ERROR: ", err)
+          }
+          console.log("Got a mission event :" + newDocs._id)
+        });
+      } else if ((eventJSon.event == "MissionCompleted") ||
+        (eventJSon.event == "MissionFailed") ||
+        (eventJSon.event == "MissionAbandoned")
+      ) {
+        dbMissions.remove({
+          MissionID: eventJSon.MissionID
+        }, {}, function(err, numRemoved) {
+          if (err) {
+            console.log("ERROR: ", err)
+          }
+          console.log("Removed a mission event :" + eventJSon.MissionID);
+        });
+      } else if (eventJSon.event == "MissionRedirected") {
+          dbMissions.update({
+              MissionID: eventJSon.MissionID
+            },
+            {$set:eventJSon}, {
+              upsert: false
+            },
+            function(err, numReplaced, upsert) {
+              if (err) {
+                console.log("ERROR: ", err)
+              } else {
+                console.log("\tUpdated a Mission event :" + eventJSon.MissionID)
+              }
+            });
+
+      }
+
     } else if (eventJSon.event == "CommunityGoal") {
       eventJSon.CurrentGoals.map(x => {
         dbCommunityGoal.update({

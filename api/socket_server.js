@@ -1,5 +1,6 @@
-exports.startServer = function() {
-  var io = require('socket.io')();
+exports.startServer = function(server) {
+
+  var io = require('socket.io')(server);
   io.on('connection', function(client) {
     console.log("Client connected");
 
@@ -14,6 +15,6 @@ exports.startServer = function() {
 
 
   });
-  io.listen(3000);
+  server.listen(3000);
   return io
 }
