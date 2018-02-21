@@ -10,7 +10,7 @@ router.use(function timeLog (req, res, next) {
 // define the home page route
 router.get('/', function (req, res) {
   //res.render('home');
-  res.render('home', {layout: false});
+  res.render('home');
 })
 // define the about route
 router.get('/about', function (req, res) {

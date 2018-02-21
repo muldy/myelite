@@ -12,16 +12,12 @@ let win
 function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
-    width: 800,
-    height: 600
+    width: 1024,
+    height: 768
   })
 
   // and load the index.html of the app.
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'empty_template.html'),
-    protocol: 'file:',
-    slashes: true
-  }))
+  win.loadURL('http://localhost:3000')
 
   // Open the DevTools.
   win.webContents.openDevTools()
@@ -85,7 +81,8 @@ var hbs = exphbs.create({ /* config */ });
 // Register `hbs.engine` with the Express app.
 wapp.engine('handlebars', hbs.engine);
 wapp.set('view engine', 'handlebars');
-wapp.enable('view cache');
+//wapp.enable('view cache');
+wapp.disable('etag');
 //TODO: process.env.NODE_ENV === "production"
 
 var server = require('http').createServer(wapp);
