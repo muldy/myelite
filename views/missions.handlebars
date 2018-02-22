@@ -1,0 +1,37 @@
+
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">MissionID</th>
+      <th scope="col">Name</th>
+      <th scope="col">Faction (Rep) - (Infl)</th>
+      <th scope="col">Target Faction</th>
+      <th scope="col">Destination System(Station)</th>
+      <th scope="col">Reward</th>
+      <th scope="col">Expiration</th>
+    </tr>
+  </thead>
+  <tbody>
+      {{#each content}}
+    <tr class="table-active">
+      <th scope="row">{{{MissionID}}}</th>
+      <td>{{{LocalisedName}}}</td>
+      <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
+      <td>{{{TargetFaction}}}</td>
+      <td>{{#if OldDestinationStation}}
+          <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
+          {{{DestinationSystem}}} ({{{DestinationStation}}})
+          {{else}}
+          {{{DestinationSystem}}} ({{{DestinationStation}}})
+          {{/if}}
+          </td>
+      <td>{{{Reward}}}</td>
+      <td>{{{Expiry}}}</td>
+    </tr>
+    {{/each}}
+    
+  </tbody>
+</table> 
+<pre>
+    {{{docs}}}
+</pre>
