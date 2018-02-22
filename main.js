@@ -106,4 +106,4 @@ const lreader = require('./api/log_reader')
 
 
 /* LOG READER */
-//var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);
+var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);

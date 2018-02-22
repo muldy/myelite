@@ -13,7 +13,7 @@ router.get('/nav_home', function (req, res) {
 })
 // define the home page route
 router.get('/nav_missions', function (req, res) {
-  db.find({}).sort({ DestinationSystem: 1 }).exec(function (err, docs) {
+  dbMissions.find({}).sort({ DestinationSystem: 1, DestinationStation: 1 }).exec(function (err, docs) {
     // docs is an array containing documents Mars, Earth, Jupiter
     // If no document is found, docs is equal to []
     //res.json(docs)//res.render('home');

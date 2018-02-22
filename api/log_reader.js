@@ -1,7 +1,7 @@
 exports.readLog = function(io, dbEvents, dbMissions, dbCommunityGoal) {
 
   var LineByLineReader = require('line-by-line'),
-    lr = new LineByLineReader('event_logs/event3.log');
+    lr = new LineByLineReader('event_logs/event2.log');
 
   lr.on('error', function(err) {
     // 'err' contains error object
