@@ -20,7 +20,7 @@ function createWindow() {
   //win.loadURL('http://localhost:3000')
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, 'missions.html'),
+    pathname: path.join(__dirname, 'main.html'),
     protocol: 'file:',
     slashes: true
   }))
@@ -82,19 +82,19 @@ var Datastore = require('nedb'),
 var wapp = require('express')();
 var exphbs  = require('express-handlebars');
 
-var hbs = exphbs.create({ /* config */ });
+var hbs = exphbs.create({defaultLayout: 'main'});
 
 // Register `hbs.engine` with the Express app.
 wapp.engine('handlebars', hbs.engine);
 wapp.set('view engine', 'handlebars');
 //wapp.enable('view cache');
-wapp.disable('etag');
+//wapp.disable('etag');
 //TODO: process.env.NODE_ENV === "production"
 
 var server = require('http').createServer(wapp);
 //routes
 var router = require('./api/router_main')
-wapp.use('/',router)
+wapp.use('/html',router)
 var missions = require('./api/router_missions')
 wapp.use('/missions',missions)
 
