@@ -1,5 +1,5 @@
 {{#if docs.length}}
-<table class="table table-hover" id ="missions">
+<table class="table table-hover" id ="active_missions">
     <thead>
         <tr>
             <th scope="col">MissionID</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
         {{#each content}}
-        <tr class="table-active" id="mission{{{MissionID}}}">
+        <tr class="table-active" id="mission_a{{{MissionID}}}">
             <th scope="row">
                 <a href="#{{{MissionID}}}">{{{event}}}</a>
             </th>

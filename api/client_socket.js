@@ -8,7 +8,8 @@ exports.startServer = function(webSock,dbEvents, dbMissions, dbCommunityGoal) {
     });
     socket.on('main_log', function(data){
         parser.parseEvent(data,dbEvents, dbMissions, dbCommunityGoal);        
-        webSock.emit('event', data);
+        const adminNamespace = webSock.of('/test');
+        adminNamespace.emit('event', data);
         //console.log(data)
     });
     socket.on('disconnect', function(){
