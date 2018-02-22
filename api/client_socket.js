@@ -7,8 +7,10 @@ exports.startServer = function(webSock,dbEvents, dbMissions, dbCommunityGoal) {
         console.log("CLient socket connected!")
     });
     socket.on('main_log', function(data){
-        parser.parseEvent(data,dbEvents, dbMissions, dbCommunityGoal);        
-        webSock.emit('event', data);
+        parser.parseEvent(data,dbEvents, dbMissions, dbCommunityGoal); 
+
+        const adminNamespace = webSock.of('/test');
+        adminNamespace.emit('event', data);
         //console.log(data)
     });
     socket.on('disconnect', function(){
