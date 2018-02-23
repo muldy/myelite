@@ -105,6 +105,7 @@ wapp.use('/missions',missions)
 const io = require('./api/socket_server')
 
 var webSock = io.startServer(server,router);
+
 const lreader = require('./api/log_reader')
 
 //websockets client
