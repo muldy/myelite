@@ -13,45 +13,7 @@
     </thead>
     <tbody>
         {{#each content}}
-        <tr class="table-active" id="mission_a{{{MissionID}}}">
-            <th scope="row">
-                <a href="#{{{MissionID}}}">{{{event}}}</a>
-            </th>
-            <td>
-                <ul class="list-group">
-                    <li class="list-group-item">{{{LocalisedName}}}</li>
-                    {{#if PassengerCount}}
-                    <li class="list-group-item">
-                        <strong>{{{PassengerCount}}}</strong>&nbsp;{{/if}} {{#if PassengerVIPs}}
-                        <strong>VIP</strong>&nbsp;{{/if}} {{#if Tourist}}</strong>Tourist</strong>&nbsp;{{/if}} {{#if PassengerType}}</strong>{{{PassengerType}}}</strong>&nbsp;{{/if}}
-                        {{#if PassengerWanted}}
-                        <strong>WANTED</strong>&nbsp;{{/if}} {{#if PassengerCount}}
-                    </li>
-                    {{else}} {{#if Count}}
-                    <li class="list-group-item">
-                        <strong>{{{Count}}}</strong>&nbsp;{{/if}} {{#if PassengerVIPs}}
-                        <strong>VIP</strong>&nbsp;{{/if}} {{#if Tourist}}</strong>Tourist</strong>&nbsp;{{/if}} {{#if PassengerType}}</strong>{{{PassengerType}}}</strong>&nbsp;{{/if}}
-                        {{#if PassengerWanted}}
-                        <strong>WANTED</strong>&nbsp;{{/if}} {{#if Count}}
-                    </li>
-                    {{/if}} 
-                    {{/if}}
-                    {{#if Commodity}}
-                    <li class="list-group-item">
-                        Commodity Reward: <strong>{{{Commodity_Localised}}}</strong>&nbsp;
-                    </li>
-                    {{/if}}
-                </ul>
-            </td>
-            <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
-            <td>{{{TargetFaction}}}</td>
-            <td>{{#if OldDestinationStation}}
-                <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
-                {{{DestinationSystem}}} ({{{DestinationStation}}}) {{else}} {{{DestinationSystem}}} ({{{DestinationStation}}}) {{/if}}
-            </td>
-            <td>{{{Reward}}}</td>
-            <td>{{{Expiry}}}</td>
-        </tr>
+        {{> mission_line}}
         {{/each}}
 
     </tbody>
