@@ -1,5 +1,4 @@
-{{#if docs.length}}
-<table class="table table-hover" id ="active_missions">
+<table class="table table-hover" id="active_missions">
     <thead>
         <tr>
             <th scope="col">MissionID</th>
@@ -12,21 +11,13 @@
         </tr>
     </thead>
     <tbody>
-        {{#each content}}
-        {{> mission_line}}
-        {{/each}}
-
+        {{#if docs.length}} {{#each content}} {{> mission_line}} {{/each}} {{else}}
+        <tr>
+            <td colspan="7">No nissions!</td>
+        </tr>
+        {{/if}}
     </tbody>
 </table>
 <pre>
     {{{docs}}}
 </pre>
-{{else}}
-<div class="card border-info mb-3" style="max-width: 20rem;">
-  <div class="card-header">No missions</div>
-  <div class="card-body">
-    <h4 class="card-title">You lazy bum!</h4>
-    <p class="card-text">Go do something usefull for the community!</p>
-  </div>
-</div>
-{{/if}}

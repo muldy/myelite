@@ -36,6 +36,9 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null
   })
+  //websockets client
+  const socketClient = require('./api/client_socket');
+  socketClient.startServer(win,dbEvents, dbMissions, dbCommunityGoal);
 }
 
 // This method will be called when Electron has finished
@@ -69,18 +72,18 @@ var Datastore = require('nedb'),
     autoload: true
   });
 
-  dbMissions = new Datastore({
-    filename: 'db/missions',
-    autoload: true
-  });
+dbMissions = new Datastore({
+  filename: 'db/missions',
+  autoload: true
+});
 
-  dbCommunityGoal = new Datastore({
-    filename: 'db/comgoals',
-    autoload: true
-  });
+dbCommunityGoal = new Datastore({
+  filename: 'db/comgoals',
+  autoload: true
+});
 
 
-  //load handlebars partials
+//load handlebars partials
 
 var hbs = require('hbs');
 var fs = require('fs');
@@ -99,25 +102,22 @@ filenames.forEach(function (filename) {
   hbs.registerPartial(name, template);
 });
 
+var exphbs = require('express-handlebars');
 
-  
+var hbs = exphbs.create({
+  defaultLayout: 'main'
+});
 
-var exphbs  = require('express-handlebars');
 
-var hbs = exphbs.create({defaultLayout: 'main'});
+const {ipcMain} = require('electron')
+ipcMain.on('get_data', (event, arg) => {
+  console.log(arg)  // prints "ping"
+  dbMissions.find({}).sort({ DestinationSystem: 1, DestinationStation: 1 }).exec(function (err, docs) {
+    event.sender.send('data',{type:"active_missions",missions: docs})
+  })
+})
 
-//routes
-var router = require('./api/router_main')
-wapp.use('/html',router)
-var missions = require('./api/router_missions')
-wapp.use('/missions',missions)
 
-//websockets server
-
-//websockets client
-
-const socketClient = require('./api/client_socket');
-socketClient.startServer(webSock,dbEvents, dbMissions, dbCommunityGoal);
 
 
 /* LOG READER */
