@@ -1,4 +1,4 @@
-exports.startServer = function(webSock,dbEvents, dbMissions, dbCommunityGoal) {
+exports.startServer = function(dbEvents, dbMissions, dbCommunityGoal) {
     
     var socket = require('socket.io-client')('http://localhost:8666/test');
     var parser = require('./main_parser')
@@ -9,9 +9,7 @@ exports.startServer = function(webSock,dbEvents, dbMissions, dbCommunityGoal) {
     socket.on('main_log', function(data){
         parser.parseEvent(data,dbEvents, dbMissions, dbCommunityGoal);        
 
-        const adminNamespace = webSock.of('/test');
-        adminNamespace.emit('event', data);
-        //console.log(data)
+        console.log(data)
     });
     socket.on('disconnect', function(){
         console.log("CLient socket disconnected!")

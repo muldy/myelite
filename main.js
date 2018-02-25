@@ -102,19 +102,10 @@ filenames.forEach(function (filename) {
 
   
 
-var wapp = require('express')();
 var exphbs  = require('express-handlebars');
 
 var hbs = exphbs.create({defaultLayout: 'main'});
 
-// Register `hbs.engine` with the Express app.
-wapp.engine('handlebars', hbs.engine);
-wapp.set('view engine', 'handlebars');
-//wapp.enable('view cache');
-//wapp.disable('etag');
-//TODO: process.env.NODE_ENV === "production"
-
-var server = require('http').createServer(wapp);
 //routes
 var router = require('./api/router_main')
 wapp.use('/html',router)
@@ -122,11 +113,6 @@ var missions = require('./api/router_missions')
 wapp.use('/missions',missions)
 
 //websockets server
-const io = require('./api/socket_server')
-
-var webSock = io.startServer(server,router);
-
-const lreader = require('./api/log_reader')
 
 //websockets client
 
@@ -135,4 +121,5 @@ socketClient.startServer(webSock,dbEvents, dbMissions, dbCommunityGoal);
 
 
 /* LOG READER */
+const lreader = require('./api/log_reader')
 //var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);
