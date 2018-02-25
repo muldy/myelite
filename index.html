@@ -158,11 +158,9 @@
     </td>
     <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
     <td>{{{TargetFaction}}}</td>
-    <td>{{#if OldDestinationStation}}
-        <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
-        {{{DestinationSystem}}} ({{{DestinationStation}}}) 
-        {{else}} 
-        {{{DestinationSystem}}} ({{{DestinationStation}}}) 
+    <td>{{#if OldDestinationStation}}{{{NewDestinationSystem}}} ({{{NewDestinationStation}}}) <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
+        {{else}}
+        {{#if DestinationSystem}}{{{DestinationSystem}}} ({{{DestinationStation}}}){{else}}Undisclosed{{/if}}
         {{/if}}
     </td>
     <td>{{{Reward}}}</td>
