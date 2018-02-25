@@ -101,7 +101,6 @@
 <script src="lib/js/main.js"></script>
 
 <script id="template_nav_missions" type="text/x-handlebars-template">
-{{#if missions.length}}
 <table class="table table-hover" id ="active_missions">
     <thead>
         <tr>
@@ -115,28 +114,22 @@
         </tr>
     </thead>
     <tbody>
+{{#if missions.length}}
         {{#each missions}}
         {{> mission_line}}
         {{/each}}
 
+{{else}}
+{{/if}}
     </tbody>
 </table>
-{{else}}
-<div class="card border-info mb-3" style="max-width: 20rem;">
-  <div class="card-header">No missions</div>
-  <div class="card-body">
-    <h4 class="card-title">You lazy bum!</h4>
-    <p class="card-text">Go do something usefull for the community!</p>
-  </div>
-</div>
-{{/if}}
 </script>
 </html>
 </script>
 <script id="template_mission_line" type="text/x-handlebars-template">
 <tr class="table-active" id="mission_a{{{MissionID}}}">
     <th scope="row">
-        <a href="#{{{MissionID}}}">{{{event}}}</a>
+        <a href="#{{{MissionID}}}">{{{event}}} {{{MissionID}}}</a>
     </th>
     <td>
         <ul class="list-group">
@@ -167,7 +160,10 @@
     <td>{{{TargetFaction}}}</td>
     <td>{{#if OldDestinationStation}}
         <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
-        {{{DestinationSystem}}} ({{{DestinationStation}}}) {{else}} {{{DestinationSystem}}} ({{{DestinationStation}}}) {{/if}}
+        {{{DestinationSystem}}} ({{{DestinationStation}}}) 
+        {{else}} 
+        {{{DestinationSystem}}} ({{{DestinationStation}}}) 
+        {{/if}}
     </td>
     <td>{{{Reward}}}</td>
     <td>{{{Expiry}}}</td>
