@@ -183,12 +183,12 @@
 
 <script id="template_left_missions" type="text/x-handlebars-template">
   {{#each missionTargetSystems}} 
-  <li class="list-group-item d-flex justify-content-between align-items-center active">
+  <li id="left_mission_{{missionid}}" class="list-group-item d-flex justify-content-between align-items-center active">
     {{name}} {{reward}}
     <span class="badge badge-primary badge-pill">{{count}}</span>
   </li>
     {{#each stations}} 
-    <li class="list-group-item d-flex justify-content-between align-items-right">
+    <li id="left_mission_{{../missionid}}_{{@index}}" class="list-group-item d-flex justify-content-between align-items-right">
       {{@key}}
       <span class="badge badge-primary badge-pill">{{this.count}}</span>
     </li>

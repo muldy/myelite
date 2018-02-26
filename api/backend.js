@@ -13,7 +13,7 @@ exports.bindBackend = function () {
         }).exec(function (err, docs) {
 
             var gistMissions = process.getMissionGist(docs)
-            gistMissions=Object.keys(gistMissions).map(x=>gistMissions[x])
+            //gistMissions=Object.keys(gistMissions).map(x=>gistMissions[x])
            
             event.sender.send('data', {
                 type: "active_missions",

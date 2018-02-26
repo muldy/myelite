@@ -20,6 +20,7 @@ exports.getMissionGist = function (missions) {
         } else {
             entries[line.DestinationSystem] = {
                 'name': line.DestinationSystem,
+                'missionid': line.MissionID,
                 'stations': {},
                 'count': 1,
                 'totalReward': line.Reward
