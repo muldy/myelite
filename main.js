@@ -87,18 +87,5 @@ dbCommunityGoal = new Datastore({
 });
 
 
-const {
-  ipcMain
-} = require('electron')
-ipcMain.on('get_data', (event, arg) => {
-  console.log(arg) // prints "ping"
-  dbMissions.find({}).sort({
-    DestinationSystem: 1,
-    DestinationStation: 1
-  }).exec(function (err, docs) {
-    event.sender.send('data', {
-      type: "active_missions",
-      missions: docs
-    })
-  })
-})
+var back = require('./api/backend')
+back.bindBackend()
