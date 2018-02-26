@@ -47,7 +47,7 @@
   <div class="container-fluid text-center">
     <div class="row content">
       <div class="col-sm-2 sidenav">
-        <ul class="list-group" id="left_col">
+        <ul class="list-group" id="left-column">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             Cras justo odio
             <span class="badge badge-primary badge-pill">14</span>
@@ -182,10 +182,16 @@
 </script>
 
 <script id="template_left_missions" type="text/x-handlebars-template">
-  {{#each gist}} 
-  <li class="list-group-item d-flex justify-content-between align-items-center">
-    {{name}}
-    <span class="badge badge-primary badge-pill">{{mission_count}}</span>
+  {{#each missionTargetSystems}} 
+  <li class="list-group-item d-flex justify-content-between align-items-center active">
+    {{name}} {{reward}}
+    <span class="badge badge-primary badge-pill">{{count}}</span>
   </li>
+    {{#each stations}} 
+    <li class="list-group-item d-flex justify-content-between align-items-right">
+      {{@key}}
+      <span class="badge badge-primary badge-pill">{{this.count}}</span>
+    </li>
+    {{/each}}
   {{/each}}
 </script>

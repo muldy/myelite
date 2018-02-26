@@ -5,7 +5,7 @@ exports.getMissionGist = function (missions) {
             //stations
             if (entries[line.DestinationSystem]['stations'][line.DestinationStation] === undefined) {
                 entries[line.DestinationSystem]['stations'][line.DestinationStation] = {
-                    'name': line.DestinationSystem,
+                    'name': line.DestinationStation,
                     'count': 1,
                     'reward': line.Reward
                 }
@@ -26,6 +26,7 @@ exports.getMissionGist = function (missions) {
 
             }
             entries[line.DestinationSystem]['stations'][line.DestinationStation] = {
+                'name': line.DestinationStation,
                 'count': 1,
                 'reward': line.Reward
             }

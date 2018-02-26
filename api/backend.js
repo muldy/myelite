@@ -11,11 +11,15 @@ exports.bindBackend = function () {
             DestinationSystem: 1,
             DestinationStation: 1
         }).exec(function (err, docs) {
+
+            var gistMissions = process.getMissionGist(docs)
+            gistMissions=Object.keys(gistMissions).map(x=>gistMissions[x])
+           
             event.sender.send('data', {
                 type: "active_missions",
                 missions: docs,
                 missionCount: docs.length,
-                missionTargetSystems:process.getMissionGist(docs)
+                missionTargetSystems:gistMissions
             })
         })
     })
