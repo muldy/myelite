@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "bootstrap": "3.3.7",
-    "jquery": "1.9.1"
+    "jquery": "1.9.1",
+    "handlebars": "^4.0.11"
   }
 }

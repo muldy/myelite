@@ -1,0 +1,23 @@
+<table class="table table-hover" id="active_missions">
+    <thead>
+        <tr>
+            <th scope="col">MissionID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Faction (Rep) - (Infl)</th>
+            <th scope="col">Target Faction</th>
+            <th scope="col">Destination System(Station)</th>
+            <th scope="col">Reward</th>
+            <th scope="col">Expiration</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#if docs.length}} {{#each content}} {{> mission_line}} {{/each}} {{else}}
+        <tr>
+            <td colspan="7">No nissions!</td>
+        </tr>
+        {{/if}}
+    </tbody>
+</table>
+<pre>
+    {{{docs}}}
+</pre>
