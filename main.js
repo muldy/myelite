@@ -42,7 +42,7 @@ function createWindow() {
 
   /* LOG READER */
   const lreader = require('./api/log_reader')
-  var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
+  //var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
 }
 
 // This method will be called when Electron has finished

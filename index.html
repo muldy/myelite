@@ -96,13 +96,9 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-2 sidenav">
-        <div class="well">
-          <p>ADS</p>
-        </div>
-        <div class="well">
-          <p>ADS</p>
-        </div>
+      <div  class="col-sm-2 sidenav">
+        <div id="right-column" class="list-group">
+          </div>
       </div>
     </div>
   </div>
@@ -193,5 +189,18 @@
       <span class="badge badge-primary badge-pill">{{this.count}}</span>
     </li>
     {{/each}}
+  {{/each}}
+</script>
+
+<script id="template_right_missions" type="text/x-handlebars-template">
+{{#each goals}} 
+  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{Title}}</h5>
+      <small>{{SystemName}}</small>
+    </div>
+    <p class="mb-1">{{MarketName}}</p>
+    <small>{{TierReached}}<small>
+  </a>
   {{/each}}
 </script>
