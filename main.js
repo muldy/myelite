@@ -38,7 +38,11 @@ function createWindow() {
   })
   //websockets client
   const socketClient = require('./api/client_socket');
-  socketClient.startServer(win,dbEvents, dbMissions, dbCommunityGoal);
+  socketClient.startServer(win, dbEvents, dbMissions, dbCommunityGoal);
+
+  /* LOG READER */
+  const lreader = require('./api/log_reader')
+  var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
 }
 
 // This method will be called when Electron has finished
@@ -109,17 +113,18 @@ var hbs = exphbs.create({
 });
 
 
-const {ipcMain} = require('electron')
+const {
+  ipcMain
+} = require('electron')
 ipcMain.on('get_data', (event, arg) => {
-  console.log(arg)  // prints "ping"
-  dbMissions.find({}).sort({ DestinationSystem: 1, DestinationStation: 1 }).exec(function (err, docs) {
-    event.sender.send('data',{type:"active_missions",missions: docs})
+  console.log(arg) // prints "ping"
+  dbMissions.find({}).sort({
+    DestinationSystem: 1,
+    DestinationStation: 1
+  }).exec(function (err, docs) {
+    event.sender.send('data', {
+      type: "active_missions",
+      missions: docs
+    })
   })
 })
-
-
-
-
-/* LOG READER */
-const lreader = require('./api/log_reader')
-//var reader = lreader.readLog(webSock,dbEvents,dbMissions,dbCommunityGoal);
