@@ -44,6 +44,21 @@
   <div class="container-fluid text-center">
     <div class="row content">
       <div class="col-sm-2 sidenav">
+          <ul class="list-group">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Cras justo odio
+                <span class="badge badge-primary badge-pill">14</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Dapibus ac facilisis in
+                <span class="badge badge-primary badge-pill">2</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Morbi leo risus
+                <span class="badge badge-primary badge-pill">1</span>
+              </li>
+            </ul>
+            <!--
         <ul class="nav nav-pills flex-column">
           <li class="nav-item">
             <a class="nav-link active" href="#">Active</a>
@@ -65,6 +80,7 @@
             <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
+      -->
       </div>
       <div class="col-sm-8 text-left" id="center-column">
         <div class="page-header" id="banner">
@@ -105,9 +121,9 @@
     <thead>
         <tr>
             <th scope="col">MissionID</th>
-            <th scope="col">Name</th>
             <th scope="col">Faction (Rep) - (Infl)</th>
             <th scope="col">Target Faction</th>
+            <th scope="col">Name</th>
             <th scope="col">Destination System(Station)</th>
             <th scope="col">Reward</th>
             <th scope="col">Expiration</th>
@@ -131,6 +147,8 @@
     <th scope="row">
         <a href="#{{{MissionID}}}">{{{event}}} {{{MissionID}}}</a>
     </th>
+    <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
+    <td>{{{TargetFaction}}}</td>
     <td>
         <ul class="list-group">
             <li class="list-group-item">{{{LocalisedName}}}</li>
@@ -156,8 +174,6 @@
             {{/if}}
         </ul>
     </td>
-    <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
-    <td>{{{TargetFaction}}}</td>
     <td>{{#if OldDestinationStation}}{{{NewDestinationSystem}}} ({{{NewDestinationStation}}}) <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
         {{else}}
         {{#if DestinationSystem}}{{{DestinationSystem}}} ({{{DestinationStation}}}){{else}}Undisclosed{{/if}}
