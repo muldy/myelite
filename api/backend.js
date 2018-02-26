@@ -26,7 +26,7 @@ exports.bindBackend = function () {
         }
         else if (arg == "community_goals") {
             dbCommunityGoal.find({}).sort({
-                Expiry
+                Expiry:1
             }).exec(function (err, docs) {
 
                 event.sender.send('data', {
