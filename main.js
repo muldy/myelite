@@ -5,6 +5,8 @@ const {
 const path = require('path')
 const url = require('url')
 
+var fs = require('fs');
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let win
@@ -42,7 +44,15 @@ function createWindow() {
 
   /* LOG READER */
   const lreader = require('./api/log_reader')
-  //var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
+  if (process.argv.includes("--demo"))
+  {
+    console.log("Running demo!")
+    fs.unlinkSync("db/comgoals");
+    fs.unlinkSync("db/events");
+    fs.unlinkSync("db/missions");
+    
+    var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
+  }
 }
 
 // This method will be called when Electron has finished

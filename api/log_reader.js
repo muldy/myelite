@@ -22,7 +22,7 @@ exports.readLog = function (mainWin, dbEvents, dbMissions, dbCommunityGoal) {
 
       // ...and continue emitting lines.
       lr.resume();
-    }, 500);
+    }, 1000);
   });
 
   lr.on('end', function () {
