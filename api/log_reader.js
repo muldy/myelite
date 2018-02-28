@@ -1,32 +1,18 @@
 exports.readLog = function (mainWin, dbEvents, dbMissions, dbCommunityGoal) {
 
-  var parser = require('./main_parser')
+var lineByLine = require('n-readlines');
+var parser = require('./main_parser')
+var liner = new lineByLine('event_logs/event2.log');
 
-  var LineByLineReader = require('line-by-line'),
-    lr = new LineByLineReader('event_logs/event2.log');
-
-  lr.on('error', function (err) {
-    // 'err' contains error object
-  });
-
-  lr.on('line', function (line) {
-    // pause emitting of lines...
-    lr.pause();
-
-    line = JSON.parse(line)
-    parser.parseEvent(line, dbEvents, dbMissions, dbCommunityGoal);
+var line;
+var lineNumber = 0;
+while (line = liner.next()) {
+    line = JSON.parse(line.toString())
+    parser.parseEvent({data:line}, dbEvents, dbMissions, dbCommunityGoal);
 
     mainWin.webContents.send('journal',{data: line});
-    // ...do your asynchronous line processing..
-    setTimeout(function () {
+    lineNumber++;
+}
 
-      // ...and continue emitting lines.
-      lr.resume();
-    }, 1000);
-  });
-
-  lr.on('end', function () {
-    // All lines are read, file is closed now.
-  });
-  return lr;
+console.log('end of line reached');
 }
