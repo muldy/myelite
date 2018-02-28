@@ -44,13 +44,17 @@ function createWindow() {
 
   /* LOG READER */
   const lreader = require('./api/log_reader')
-  if (process.argv.includes("--demo"))
-  {
+  if (process.argv.includes("--demo")) {
     console.log("Running demo!")
-    fs.unlinkSync("db/comgoals");
-    fs.unlinkSync("db/events");
-    fs.unlinkSync("db/missions");
-    
+    try {
+      fs.unlinkSync("db/comgoals");
+      fs.unlinkSync("db/events");
+      fs.unlinkSync("db/missions");
+    } catch (error) {
+      //they may not exist
+      console.log(error)
+    }
+
     var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
   }
 }
