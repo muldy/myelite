@@ -40,6 +40,8 @@ exports.parseEvent = function (line,dbEvents, dbMissions, dbCommunityGoal) {
                 console.log("Removed a mission event :" + eventJSon.MissionID);
             });
         } else if (eventJSon.event == "MissionRedirected") {
+            eventJSon.DestinationSystem=eventJSon.NewDestinationSystem
+            eventJSon.DestinationStation=eventJSon.NewDestinationStation
             dbMissions.update({
                     MissionID: eventJSon.MissionID
                 }, {
