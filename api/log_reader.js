@@ -5,7 +5,7 @@ exports.readLog = function (mainWin, dbEvents, dbMissions, dbCommunityGoal) {
     var LineByLineReader = require('line-by-line')
 
     var lineNumber = 0;
-    const testFolder = './event_logs/';
+    const testFolder = 'event_logs/';
 
     fs.readdir(testFolder, (err, files) => {
         files.forEach(file => {
