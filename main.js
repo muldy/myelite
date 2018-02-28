@@ -27,8 +27,6 @@ function createWindow() {
     slashes: true
   }))
 
-  // Open the DevTools.
-  //win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
@@ -45,6 +43,8 @@ function createWindow() {
   /* LOG READER */
   const lreader = require('./api/log_reader')
   if (process.argv.includes("--demo")) {
+    // Open the DevTools.
+    win.webContents.openDevTools()
     console.log("Running demo!")
     try {
       fs.unlinkSync("db/comgoals");
