@@ -2,6 +2,7 @@
   "name": "myelite",
   "version": "1.0.0",
   "description": "Elite Dangerous Electron Conpanion app",
+  "productName": "Elite Dangerous Electron Conpanion app",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
