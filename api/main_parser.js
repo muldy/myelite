@@ -1,3 +1,5 @@
+var currentSystem = ""
+var CurrentStation = ""
 exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
     //var eventJSon = JSON.parse(line);
     var eventJSon = line.data;
