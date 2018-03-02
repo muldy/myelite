@@ -4,12 +4,6 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
     //var eventJSon = JSON.parse(line);
     var eventJSon = line.data;
 
-    //all go to events db
-    dbEvents.insert(eventJSon, function (err, newDocs) {
-        if (err) {
-            console.log("ERROR: ", err)
-        }
-    });
     if (eventJSon.event === undefined) {
         if (eventJSon.lastSystem !== undefined) {
             console.log("*** GOT A LONG LASTSYSTEM ENTRY ***")
@@ -202,5 +196,12 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
         console.log("***********************************\n")
         console.log('\n} else if (eventJSon.event == "' + eventJSon.event + '") {\nconsole.log("Got a ' + eventJSon.event + ' event")\n')
         console.log("***********************************\n")
+
+        //all unknown go to events db
+        dbEvents.insert(eventJSon, function (err, newDocs) {
+            if (err) {
+                console.log("ERROR: ", err)
+            }
+        });
     }
 }
