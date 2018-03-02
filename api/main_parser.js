@@ -1,7 +1,7 @@
-exports.parseEvent = function (line,dbEvents, dbMissions, dbCommunityGoal) {
+exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
     //var eventJSon = JSON.parse(line);
     var eventJSon = line.data;
-    
+
     //all go to events db
     dbEvents.insert(eventJSon, function (err, newDocs) {
         if (err) {
@@ -40,8 +40,8 @@ exports.parseEvent = function (line,dbEvents, dbMissions, dbCommunityGoal) {
                 console.log("Removed a mission event :" + eventJSon.MissionID);
             });
         } else if (eventJSon.event == "MissionRedirected") {
-            eventJSon.DestinationSystem=eventJSon.NewDestinationSystem
-            eventJSon.DestinationStation=eventJSon.NewDestinationStation
+            eventJSon.DestinationSystem = eventJSon.NewDestinationSystem
+            eventJSon.DestinationStation = eventJSon.NewDestinationStation
             dbMissions.update({
                     MissionID: eventJSon.MissionID
                 }, {
@@ -59,6 +59,21 @@ exports.parseEvent = function (line,dbEvents, dbMissions, dbCommunityGoal) {
 
         }
 
+    } else if (eventJSon.event == "SupercruiseEntry") {
+        dbMissions.update({
+                MissionID: eventJSon.MissionID
+            }, {
+                $set: eventJSon
+            }, {
+                upsert: false
+            },
+            function (err, numReplaced, upsert) {
+                if (err) {
+                    console.log("ERROR: ", err)
+                } else {
+                    console.log("\tUpdated a Mission event :" + eventJSon.MissionID)
+                }
+            });
     } else if (eventJSon.event == "CommunityGoal") {
         eventJSon.CurrentGoals.map(x => {
             dbCommunityGoal.update({
