@@ -7,7 +7,7 @@ exports.readLog = function (mainWin, dbEvents, dbMissions, dbCommunityGoal) {
     var lineNumber = 0;
     const testFolder = 'event_logs/';
 
-    fs.readdir(testFolder, (err, files) => {
+    fs.readdirSync(testFolder, (err, files) => {
         files.forEach(file => {
             console.log("Reading from log: " + testFolder + file)
             lr = new LineByLineReader(testFolder + file);
@@ -38,7 +38,7 @@ exports.readLog = function (mainWin, dbEvents, dbMissions, dbCommunityGoal) {
 
                     // ...and continue emitting lines.
                     lr.resume();
-                }, 1000);
+                }, 500);
             });
 
             lr.on('end', function () {
