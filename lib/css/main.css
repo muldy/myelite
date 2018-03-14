@@ -52,3 +52,8 @@ div#left-column {
 [data-notify="container"][class*="alert-pastel-"] > [data-notify="message"] {
 	font-weight: 400;
 }
+
+.progress {
+	min-width: 80px;
+	color:white;
+}

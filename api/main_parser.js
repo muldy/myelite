@@ -1,6 +1,6 @@
 var currentSystem = ""
 var CurrentStation = ""
-exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
+exports.parseEvent = function (line, mainDb) {
     //var eventJSon = JSON.parse(line);
     var eventJSon = line.data;
 
@@ -17,7 +17,7 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
     } else if (eventJSon.event.startsWith("Mission")) {
 
         if (eventJSon.event == "MissionAccepted") {
-            dbMissions.insert(eventJSon, function (err, newDocs) {
+            mainDb.dbMissions.insert(eventJSon, function (err, newDocs) {
                 if (err) {
                     console.log("ERROR: ", err)
                 }
@@ -27,7 +27,7 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
             (eventJSon.event == "MissionFailed") ||
             (eventJSon.event == "MissionAbandoned")
         ) {
-            dbMissions.remove({
+            mainDb.dbMissions.remove({
                 MissionID: eventJSon.MissionID
             }, {}, function (err, numRemoved) {
                 if (err) {
@@ -38,7 +38,7 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
         } else if (eventJSon.event == "MissionRedirected") {
             eventJSon.DestinationSystem = eventJSon.NewDestinationSystem
             eventJSon.DestinationStation = eventJSon.NewDestinationStation
-            dbMissions.update({
+            mainDb.dbMissions.update({
                     MissionID: eventJSon.MissionID
                 }, {
                     $set: eventJSon
@@ -56,7 +56,7 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
         }
 
     } else if (eventJSon.event == "SupercruiseEntry") {
-        dbMissions.update({
+        mainDb.dbMissions.update({
                 MissionID: eventJSon.MissionID
             }, {
                 $set: eventJSon
@@ -72,7 +72,7 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
             });
     } else if (eventJSon.event == "CommunityGoal") {
         eventJSon.CurrentGoals.map(x => {
-            dbCommunityGoal.update({
+            mainDb.dbCommunityGoal.update({
                     CGID: x.CGID
                 },
                 x, {
@@ -90,10 +90,25 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
 
         /**************************** NOT STORED ***********************************************/
     } else if (eventJSon.event == "Progress") {
+        mainDb.dbProgress.insert(eventJSon, function (err, newDocs) {
+            if (err) {
+                console.log("ERROR: ", err)
+            }
+        });
         console.log("Got a Progress event")
     } else if (eventJSon.event == "Rank") {
+        mainDb.dbRanks.insert(eventJSon, function (err, newDocs) {
+            if (err) {
+                console.log("ERROR: ", err)
+            }
+        });
         console.log("Got a Rank event")
     } else if (eventJSon.event == "LoadGame") {
+        mainDb.dbLoads.insert(eventJSon, function (err, newDocs) {
+            if (err) {
+                console.log("ERROR: ", err)
+            }
+        });
         console.log("Got a LoadGame event")
     } else if (eventJSon.event == "Location") {
         console.log("Got a Location event")
@@ -198,7 +213,7 @@ exports.parseEvent = function (line, dbEvents, dbMissions, dbCommunityGoal) {
         console.log("***********************************\n")
 
         //all unknown go to events db
-        dbEvents.insert(eventJSon, function (err, newDocs) {
+        mainDb.dbEvents.insert(eventJSon, function (err, newDocs) {
             if (err) {
                 console.log("ERROR: ", err)
             }

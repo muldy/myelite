@@ -38,7 +38,7 @@ function createWindow() {
   })
   //websockets client
   const socketClient = require('./api/client_socket');
-  socketClient.startServer(win, dbEvents, dbMissions, dbCommunityGoal);
+  socketClient.startServer(win,mainDb);
 
   /* LOG READER */
   const lreader = require('./api/log_reader')
@@ -50,12 +50,15 @@ function createWindow() {
       fs.unlinkSync("db/comgoals");
       fs.unlinkSync("db/events");
       fs.unlinkSync("db/missions");
+      //fs.unlinkSync("db/ranks");
+      //fs.unlinkSync("db/loads");
+      //fs.unlinkSync("db/progress");
     } catch (error) {
       //they may not exist
       console.log(error)
     }
 
-    var reader = lreader.readLog(win, dbEvents, dbMissions, dbCommunityGoal);
+    var reader = lreader.readLog(win, mainDb ,process.argv[process.argv.indexOf("--demo")+1]);
   }
 }
 
@@ -84,22 +87,36 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 
-var Datastore = require('nedb'),
-  dbEvents = new Datastore({
+var Datastore = require('nedb')
+var mainDb = {
+  dbEvents: new Datastore({
     filename: 'db/events',
     autoload: true
-  });
+  }),
 
-dbMissions = new Datastore({
-  filename: 'db/missions',
-  autoload: true
-});
+  dbMissions: new Datastore({
+    filename: 'db/missions',
+    autoload: true
+  }),
 
-dbCommunityGoal = new Datastore({
-  filename: 'db/comgoals',
-  autoload: true
-});
+  dbCommunityGoal: new Datastore({
+    filename: 'db/comgoals',
+    autoload: true
+  }),
+  dbRanks: new Datastore({
+    filename: 'db/ranks',
+    autoload: true
+  }),
+  dbLoads: new Datastore({
+    filename: 'db/loads',
+    autoload: true
+  }),
+  dbProgress: new Datastore({
+    filename: 'db/Progress',
+    autoload: true
+  })
+}
 
 
 var back = require('./api/backend')
-back.bindBackend()
+back.bindBackend(mainDb)

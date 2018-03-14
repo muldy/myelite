@@ -3,12 +3,12 @@ const {
 } = require('electron')
 
 /* get active mission data  */
-exports.bindBackend = function () {
+exports.bindBackend = function (mainDb) {
     var process = require('./data_process')
     ipcMain.on('get_data', (event, arg) => {
         console.log("Get data: ", arg)
         if (arg == "active_missions") {
-            dbMissions.find({}).sort({
+            mainDb.dbMissions.find({}).sort({
                 DestinationSystem: 1,
                 DestinationStation: 1
             }).exec(function (err, docs) {
@@ -25,13 +25,46 @@ exports.bindBackend = function () {
             })
         }
         else if (arg == "community_goals") {
-            dbCommunityGoal.find({}).sort({
+            mainDb.dbCommunityGoal.find({}).sort({
                 Expiry:1
             }).exec(function (err, docs) {
 
                 event.sender.send('data', {
                     type: "community_goals",
                     goals: docs,
+                })
+            })
+        }
+        else if (arg == "ranks") {
+            mainDb.dbRanks.find({}).sort({
+                timestamp:1
+            }).exec(function (err, docs) {
+
+                event.sender.send('data', {
+                    type: "ranks",
+                    ranks: docs,
+                })
+            })
+        }
+        else if (arg == "load") {
+            mainDb.dbLoads.find({}).sort({
+                timestamp:1
+            }).exec(function (err, docs) {
+
+                event.sender.send('data', {
+                    type: "ranks",
+                    loads: docs,
+                })
+            })
+        }
+        else if (arg == "progress") {
+            mainDb.dbLoads.find({}).sort({
+                timestamp:1
+            }).exec(function (err, docs) {
+
+                event.sender.send('data', {
+                    type: "ranks",
+                    progress: docs,
                 })
             })
         }
