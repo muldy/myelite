@@ -199,6 +199,63 @@ exports.parseEvent = function (line, mainDb) {
         console.log("Got a ShipyardBuy event")
     } else if (eventJSon.event == "ModuleSellRemote") {
         console.log("Got a ModuleSellRemote event")
+    } else if (eventJSon.event == "Reputation") {
+        console.log("Got a Reputation event")
+    } else if (eventJSon.event == "Statistics") {
+        console.log("Got a Statistics event")
+    } else if (eventJSon.event == "Shipyard") {
+        console.log("Got a Shipyard event")
+    } else if (eventJSon.event == "StoredShips") {
+        console.log("Got a StoredShips event")
+    } else if (eventJSon.event == "ShipyardSell") {
+        console.log("Got a ShipyardSell event")
+    } else if (eventJSon.event == "DiscoveryScan") {
+        console.log("Got a DiscoveryScan event")
+    } else if (eventJSon.event == "ShipyardTransfer") {
+        console.log("Got a ShipyardTransfer event")
+    } else if (eventJSon.event == "Outfitting") {
+        console.log("Got a Outfitting event")
+    } else if (eventJSon.event == "StoredModules") {
+        console.log("Got a StoredModules event")
+    } else if (eventJSon.event == "ShipTargeted") {
+        console.log("Got a ShipTargeted event")
+    } else if (eventJSon.event == "Shutdown") {
+        console.log("Got a Shutdown event")
+    } else if (eventJSon.event == "CommunityGoalJoin") {
+        console.log("Got a CommunityGoalJoin event")
+    } else if (eventJSon.event == "ApproachBody") {
+        console.log("Got a ApproachBody event")
+    } else if (eventJSon.event == "LeaveBody") {
+        console.log("Got a LeaveBody event")
+    } else if (eventJSon.event == "Promotion") {
+        console.log("Got a Promotion event")
+    } else if (eventJSon.event == "Commander") {
+        console.log("Got a Commander event")
+    } else if (eventJSon.event == "Screenshot") {
+        console.log("Got a Screenshot event")
+    } else if (eventJSon.event == "Market") {
+        console.log("Got a Market event")
+    } else if (eventJSon.event == "ModuleInfo") {
+        console.log("Got a ModuleInfo event")
+    } else if (eventJSon.event == "SendText") {
+        console.log("Got a SendText event")
+    } else if (eventJSon.event == "Friends") {
+        console.log("Got a Friends event")
+    } else if (eventJSon.event == "UnderAttack") {
+        console.log("Got a UnderAttack event")
+    } else if (eventJSon.event == "BuyAmmo") {
+        console.log("Got a BuyAmmo event")
+    } else if (eventJSon.event == "HeatWarning") {
+        console.log("Got a HeatWarning event")
+        
+
+        
+
+        
+        
+        
+        
+        
     } else if (eventJSon.event == "ReceiveText") {
         //console.log(JSON.stringify(eventJSon));
         if (eventJSon.From_Localised !== undefined) {
@@ -207,11 +264,6 @@ exports.parseEvent = function (line, mainDb) {
             console.log("Got a ReceiveText event: ", eventJSon.From, "> ", eventJSon.Message_Localised);
         }
     } else {
-        console.log("Unknown event:\n" + JSON.stringify(eventJSon, undefined, 2));
-        console.log("***********************************\n")
-        console.log('\n} else if (eventJSon.event == "' + eventJSon.event + '") {\nconsole.log("Got a ' + eventJSon.event + ' event")\n')
-        console.log("***********************************\n")
-
         //all unknown go to events db
         mainDb.dbEvents.insert(eventJSon, function (err, newDocs) {
             if (err) {

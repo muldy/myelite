@@ -48,7 +48,7 @@ function createWindow() {
     console.log("Running demo!")
     try {
       fs.unlinkSync("db/comgoals");
-      fs.unlinkSync("db/events");
+      //fs.unlinkSync("db/events");
       fs.unlinkSync("db/missions");
       //fs.unlinkSync("db/ranks");
       //fs.unlinkSync("db/loads");

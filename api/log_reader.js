@@ -17,7 +17,7 @@ exports.readLog = function (mainWin, mainDb, path) {
         // pause emitting of lines...
         lr.pause();
 
-        console.log(line)
+        //console.log(line)
         try {
 
             line = JSON.parse(line)
@@ -35,7 +35,7 @@ exports.readLog = function (mainWin, mainDb, path) {
 
             // ...and continue emitting lines.
             lr.resume();
-        }, 5000);
+        }, 100);
     });
 
     lr.on('end', function () {
