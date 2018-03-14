@@ -55,5 +55,7 @@ div#left-column {
 
 .progress {
 	min-width: 80px;
+}
+.progress-bar {
 	color:white;
 }
