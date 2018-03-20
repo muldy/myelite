@@ -85,7 +85,7 @@
     </div>
   </div>
 
-  <div class="container-fluid text-center">
+  <div class="container-fluid text-center" id="left-bar">
     <div class="row content">
       <div class="col-sm-2 sidenav">
         <ul class="list-group" id="left-column">
@@ -104,22 +104,24 @@
         </ul>
         <div id="right-column" class="list-group">
         </div>
-      </div>
-      <div class="col-sm-10 text-left" id="center-column">
-        <div class="page-header" id="banner">
-          <div class="row">
-            <div class="col-lg-8 col-md-7 col-sm-6">
-              <h1>Slate</h1>
-              <p class="lead">Shades of gunmetal gray</p>
-              Main content
-            </div>
-          </div>
-        </div>
-      </div>
+      </div>  
+
+  <div id="center-column">
+
+    <div class="jumbotron">
+      <h1 class="display-3">Hello, world!</h1>
+      <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+      </p>
+      <hr class="my-4">
+      <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+      </p>
     </div>
+
   </div>
-  <div>
     <div class="container-fluid" id="eventSubmission">
+      <div class="row">
       <form id="submitForm">
         <fieldset>
           <legend>Legend</legend>
@@ -133,13 +135,15 @@
       <pre id="jsonContent">
 
       </pre>
-    </div>
-  </div>
+      </div>
 
+    </div>
 
   <footer class="container-fluid text-center">
     <p>Footer Text</p>
   </footer>
+</div>
+</div>
 </body>
 <!-- Latest compiled and minified JavaScript -->
 <script>
@@ -156,60 +160,69 @@
 <script src="lib/js/setup.js"></script>
 <script src="lib/js/lib.js"></script>
 <script src="lib/js/binds.js"></script>
+<script src="lib/js/electron.js"></script>
 <script src="lib/js/main.js"></script>
 
 <script id="template_nav_missions" type="text/x-handlebars-template">
-  <table class="table table-hover" id="active_missions">
-    <thead>
-      <tr>
-        <th scope="col">Faction (Rep) - (Infl)</th>
-        <th scope="col">Target Faction</th>
-        <th scope="col">Name</th>
-        <th scope="col">Destination System(Station)</th>
-        <th scope="col">Reward</th>
-        <th scope="col">Expiration</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#if missions.length}} {{#each missions}}
-      <tr class="{{#ifEquals ../myCurrentStarSystem DestinationSystem}}table-warning{{else}}table-default{{/ifEquals}}" id="mission_a{{{MissionID}}}">
-        <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
-        <td>{{{TargetFaction}}}</td>
-        <td>
-          <ul class="list-group">
-            <li class="list-group-item">{{{LocalisedName}}}</li>
-            {{#if PassengerCount}}
-            <li class="list-group-item">
-              <strong>{{{PassengerCount}}}</strong>&nbsp;{{/if}} {{#if PassengerVIPs}}
-              <strong>VIP</strong>&nbsp;{{/if}} {{#if Tourist}}</strong>Tourist</strong>&nbsp;{{/if}} {{#if PassengerType}}</strong>{{{PassengerType}}}</strong>&nbsp;{{/if}}
-              {{#if PassengerWanted}}
-              <strong>WANTED</strong>&nbsp;{{/if}} {{#if PassengerCount}}
-            </li>
-            {{else}} {{#if Count}}
-            <li class="list-group-item">
-              <strong>{{{Count}}}</strong>&nbsp;{{/if}} {{#if PassengerVIPs}}
-              <strong>VIP</strong>&nbsp;{{/if}} {{#if Tourist}}</strong>Tourist</strong>&nbsp;{{/if}} {{#if PassengerType}}</strong>{{{PassengerType}}}</strong>&nbsp;{{/if}}
-              {{#if PassengerWanted}}
-              <strong>WANTED</strong>&nbsp;{{/if}} {{#if Count}}
-            </li>
-            {{/if}} {{/if}} {{#if Commodity}}
-            <li class="list-group-item">
-              Commodity Reward:
-              <strong>{{{Commodity_Localised}}}</strong>&nbsp;
-            </li>
-            {{/if}}
-          </ul>
-        </td>
-        <td>{{#if OldDestinationStation}}{{{NewDestinationSystem}}} ({{{NewDestinationStation}}})
-          <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
-          {{else}} {{#if DestinationSystem}}{{{DestinationSystem}}} ({{{DestinationStation}}}){{else}}Undisclosed{{/if}} {{/if}}
-        </td>
-        <td>{{{Reward}}}</td>
-        <td>{{{Expiry}}}</td>
-      </tr>
-      {{/each}} {{else}} {{/if}}
-    </tbody>
-  </table>
+  <div class="container-fluid text-center">
+    <div class="row content">
+      <div class="col-sm-10 text-left">
+        <div class="page-header" id="banner">
+          <table class="table table-hover" id="active_missions">
+            <thead>
+              <tr>
+                <th scope="col">Faction (Rep) - (Infl)</th>
+                <th scope="col">Target Faction</th>
+                <th scope="col">Name</th>
+                <th scope="col">Destination System(Station)</th>
+                <th scope="col">Reward</th>
+                <th scope="col">Expiration</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#if missions.length}} {{#each missions}}
+              <tr class="{{#ifEquals ../myCurrentStarSystem DestinationSystem}}table-warning{{else}}table-default{{/ifEquals}}" id="mission_a{{{MissionID}}}">
+                <td>{{{Faction}}} ({{{Reputation}}}) - ({{{Influence}}})</td>
+                <td>{{{TargetFaction}}}</td>
+                <td>
+                  <ul class="list-group">
+                    <li class="list-group-item">{{{LocalisedName}}}</li>
+                    {{#if PassengerCount}}
+                    <li class="list-group-item">
+                      <strong>{{{PassengerCount}}}</strong>&nbsp;{{/if}} {{#if PassengerVIPs}}
+                      <strong>VIP</strong>&nbsp;{{/if}} {{#if Tourist}}</strong>Tourist</strong>&nbsp;{{/if}} {{#if PassengerType}}</strong>{{{PassengerType}}}</strong>&nbsp;{{/if}}
+                      {{#if PassengerWanted}}
+                      <strong>WANTED</strong>&nbsp;{{/if}} {{#if PassengerCount}}
+                    </li>
+                    {{else}} {{#if Count}}
+                    <li class="list-group-item">
+                      <strong>{{{Count}}}</strong>&nbsp;{{/if}} {{#if PassengerVIPs}}
+                      <strong>VIP</strong>&nbsp;{{/if}} {{#if Tourist}}</strong>Tourist</strong>&nbsp;{{/if}} {{#if PassengerType}}</strong>{{{PassengerType}}}</strong>&nbsp;{{/if}}
+                      {{#if PassengerWanted}}
+                      <strong>WANTED</strong>&nbsp;{{/if}} {{#if Count}}
+                    </li>
+                    {{/if}} {{/if}} {{#if Commodity}}
+                    <li class="list-group-item">
+                      Commodity Reward:
+                      <strong>{{{Commodity_Localised}}}</strong>&nbsp;
+                    </li>
+                    {{/if}}
+                  </ul>
+                </td>
+                <td>{{#if OldDestinationStation}}{{{NewDestinationSystem}}} ({{{NewDestinationStation}}})
+                  <s>{{{OldDestinationSystem}}} ({{{OldDestinationStation}}})</s>
+                  {{else}} {{#if DestinationSystem}}{{{DestinationSystem}}} ({{{DestinationStation}}}){{else}}Undisclosed{{/if}} {{/if}}
+                </td>
+                <td>{{{Reward}}}</td>
+                <td>{{{Expiry}}}</td>
+              </tr>
+              {{/each}} {{else}} {{/if}}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </script>
 
 </script>

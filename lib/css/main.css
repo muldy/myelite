@@ -63,3 +63,6 @@ div#left-column {
 pre {
 	color: white
 }
+#left-column{
+	display: none	
+}
