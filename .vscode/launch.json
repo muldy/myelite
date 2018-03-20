@@ -21,7 +21,7 @@
         "windows": {
           "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
         },
-        "args" : [".","--demo","event_logs/log_7.log"]
+        "args" : [".","--demo","event_logs/log_21.log"]
       }
     ]
   }
