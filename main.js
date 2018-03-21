@@ -119,4 +119,4 @@ var mainDb = {
 
 
 var back = require('./api/backend')
-back.bindBackend(mainDb)
+back.bindBackend(mainDb,win)

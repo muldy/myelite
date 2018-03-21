@@ -1,10 +1,18 @@
 const {
     ipcMain
 } = require('electron')
-
+var parser = require('./main_parser')
 /* get active mission data  */
-exports.bindBackend = function (mainDb) {
+exports.bindBackend = function (mainDb, mainWin) {
     var process = require('./data_process')
+    ipcMain.on('send_event', (event, arg) => {
+        line = JSON.parse(arg)
+        console.log("send event: ", JSON.stringify(line, null, 1))
+        parser.parseEvent({
+            data: line
+        }, mainDb);
+
+    })
     ipcMain.on('get_data', (event, arg) => {
         console.log("Get data: ", arg)
         if (arg == "active_missions") {
@@ -23,49 +31,53 @@ exports.bindBackend = function (mainDb) {
                     missionTargetSystems: gistMissions
                 })
             })
-        }
-        else if (arg == "community_goals") {
+        } else if (arg == "community_goals") {
             mainDb.dbCommunityGoal.find({}).sort({
-                Expiry:1
+                Expiry: 1
             }).exec(function (err, docs) {
 
-                event.sender.send('data', {
-                    type: "community_goals",
-                    goals: docs,
-                })
+                if (docs.length > 0) {
+                    event.sender.send('data', {
+                        type: "community_goals",
+                        goals: docs,
+                    })
+                }
             })
-        }
-        else if (arg == "ranks") {
+        } else if (arg == "ranks") {
             mainDb.dbRanks.find({}).sort({
-                timestamp:1
+                timestamp: 1
             }).exec(function (err, docs) {
 
-                event.sender.send('data', {
-                    type: "ranks",
-                    ranks: docs,
-                })
+                if (docs.length > 0) {
+                    event.sender.send('data', {
+                        type: "ranks",
+                        ranks: docs,
+                    })
+                }
             })
-        }
-        else if (arg == "load") {
+        } else if (arg == "load") {
             mainDb.dbLoads.find({}).sort({
-                timestamp:1
+                timestamp: 1
             }).exec(function (err, docs) {
 
-                event.sender.send('data', {
-                    type: "ranks",
-                    loads: docs,
-                })
+                if (docs.length > 0) {
+                    event.sender.send('data', {
+                        type: "ranks",
+                        loads: docs,
+                    })
+                }
             })
-        }
-        else if (arg == "progress") {
+        } else if (arg == "progress") {
             mainDb.dbLoads.find({}).sort({
-                timestamp:1
+                timestamp: 1
             }).exec(function (err, docs) {
 
-                event.sender.send('data', {
-                    type: "ranks",
-                    progress: docs,
-                })
+                if (docs.length > 0) {
+                    event.sender.send('data', {
+                        type: "ranks",
+                        progress: docs,
+                    })
+                }
             })
         }
     })

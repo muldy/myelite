@@ -35,7 +35,7 @@ exports.readLog = function (mainWin, mainDb, path) {
 
             // ...and continue emitting lines.
             lr.resume();
-        }, 100);
+        }, 60000);
     });
 
     lr.on('end', function () {
